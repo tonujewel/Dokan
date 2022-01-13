@@ -81,3 +81,160 @@
 //     ;
 //   }
 // }
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() {
+    return _MyHomePageState();
+  }
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: const Color(0xFFE5E5E5),
+        appBar: AppBar(
+          title: const Text("Flutter Learning"),
+        ),
+        body: Column(
+          children: [
+            const SizedBox(height: 20),
+          ],
+        )
+
+        // Column(children: [
+        //   const SizedBox(height: 100),
+        //   Container(
+        //     padding: const EdgeInsets.only(left: 10),
+        //     margin: const EdgeInsets.symmetric(horizontal: 10),
+        //     width: Get.width,
+        //     decoration: BoxDecoration(
+        //       color: Colors.white,
+        //       borderRadius: BorderRadius.circular(10),
+        //       boxShadow: const [
+        //         BoxShadow(
+        //           color: Color(0x1a395ab8),
+        //           offset: Offset(0, 3),
+        //           blurRadius: 8,
+        //         ),
+        //       ],
+        //     ),
+        //     child: ExpansionPanelList(
+        //       expandedHeaderPadding: EdgeInsets.zero,
+        //       elevation: 0,
+        //       animationDuration: const Duration(milliseconds: 300),
+        //       children: [
+        //         ExpansionPanel(
+        //           headerBuilder: (context, isExpanded) {
+        //             return Container(
+        //               child: Row(
+        //                 children: [
+        //                   SvgPicture.asset(
+        //                     'assets/svg/profile.svg',
+        //                     height: 24,
+        //                     width: 24,
+        //                   ),
+        //                   SizedBox(width: 10),
+        //                   Text('Title'),
+        //                 ],
+        //               ),
+        //             );
+        //           },
+        //           body: Container(
+        //             // color: Colors.white,
+        //             child: Row(
+        //               children: const [
+        //                 Text('Body'),
+        //               ],
+        //             ),
+        //           ),
+        //           isExpanded: _expanded,
+        //           canTapOnHeader: true,
+        //         ),
+        //         ExpansionPanel(
+        //           backgroundColor: Colors.black,
+        //           headerBuilder: (context, isExpanded) {
+        //             return Container(
+        //               color: Colors.red,
+        //               child: Row(
+        //                 children: const [
+        //                   Text('Title'),
+        //                 ],
+        //               ),
+        //             );
+        //           },
+        //           body: Container(
+        //             color: Colors.green,
+        //             child: Row(
+        //               children: const [
+        //                 Text('Body'),
+        //               ],
+        //             ),
+        //           ),
+        //           isExpanded: _expanded,
+        //           canTapOnHeader: true,
+        //         ),
+        //       ],
+        //       dividerColor: Colors.grey,
+        //       expansionCallback: (panelIndex, isExpanded) {
+        //         _expanded = !_expanded;
+        //         setState(() {});
+        //       },
+        //     ),
+        //   ),
+        // ]),
+
+        );
+  }
+}
+
+
+// class MyAppState extends State<MyApp> with TickerProviderStateMixin {
+//   double _height = 50.0;
+//   double _width = 20.0;
+//   var _color = Colors.blue;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//         body: new Center(
+//           child: new Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               new AnimatedSize(
+
+//                 curve: Curves.fastOutSlowIn, child: new Container(
+//                 width: _width,
+//                 height: _height,
+//                 color: _color,
+//               ), vsync: this, duration: new Duration(seconds: 2),),
+//               new Divider(height: 35.0,),
+//               new Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: <Widget>[
+//                   new IconButton(
+//                       icon: new Icon(Icons.arrow_upward, color: Colors.green,),
+//                       onPressed: () =>
+//                           setState(() {
+//                             _color = Colors.green;
+//                             _height = 95.0;
+//                           })),
+//                   new IconButton(
+//                       icon: new Icon(Icons.arrow_forward, color: Colors.red,),
+//                       onPressed: () =>
+//                           setState(() {
+//                             _color = Colors.red;
+//                             _width = 45.0;
+//                           })),
+//                 ],
+//               )
+//             ],)
+//           ,)
+//     );
+//   }
+// }

@@ -16,11 +16,12 @@ class HomeScreen extends StatelessWidget {
         builder: (_controller) {
           return PixelPerfect.extended(
             image: Image.asset(
-              'assets/images/PRODUCT.png',
+              'assets/images/profile.png',
               width: Get.width,
               // height: Get.height,
             ),
             child: Scaffold(
+              resizeToAvoidBottomInset: false,
               body: _controller.currentScreen,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
