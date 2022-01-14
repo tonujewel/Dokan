@@ -1,5 +1,7 @@
-import 'package:dokani/controllers/product_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dokani/screens/product_list/product_controller.dart';
 import 'package:dokani/widgets/custom_button.dart';
+import 'package:dokani/widgets/custom_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,130 +15,144 @@ class ProductListScreen extends StatelessWidget {
     final kHeight = MediaQuery.of(context).size.height;
     final kWidth = MediaQuery.of(context).size.width;
     return GetBuilder<ProductController>(
-        init: ProductController(),
+        init: ProductController(context),
         builder: (_controller) {
-          return Scaffold(
-            backgroundColor: const Color(0xFFF8F8F8),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: kWidth * 0.05),
-              child: Column(
-                children: [
-                  SizedBox(height: kHeight * 0.09),
-                  titleRow(),
-                  SizedBox(height: kHeight * 0.055),
-                  GestureDetector(
-                      onTap: () => Get.bottomSheet(
-                            filterBottomSheet(kHeight, kWidth),
-                          ),
-                      child: filterContainer(kHeight, kWidth)),
-                  SizedBox(height: kHeight * 0.02),
-                  Expanded(
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      //scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1 / 1.73,
-                        crossAxisSpacing: kHeight * 0.02,
-                        mainAxisSpacing: kHeight * 0.02,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x1a395ab8),
-                                offset: Offset(0, 3),
-                                blurRadius: 8,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                child: Container(
-                                  color: const Color(0xFFD8EAEC),
-                                  height: kHeight * 0.24,
-                                  width: kWidth,
-                                  child: Image.asset(
-                                    'assets/images/demo_product_image.png',
-                                    fit: BoxFit.cover,
+          return CustomProgress(
+            isLoading: _controller.isLoading,
+            child: Scaffold(
+              backgroundColor: const Color(0xFFF8F8F8),
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: kWidth * 0.05),
+                child: Column(
+                  children: [
+                    SizedBox(height: kHeight * 0.09),
+                    titleRow(),
+                    SizedBox(height: kHeight * 0.055),
+                    GestureDetector(
+                        onTap: () => Get.bottomSheet(
+                              filterBottomSheet(kHeight, kWidth),
+                            ),
+                        child: filterContainer(kHeight, kWidth)),
+                    SizedBox(height: kHeight * 0.02),
+                    Expanded(
+                      child: GridView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: _controller.productList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1 / 1.75,
+                          crossAxisSpacing: kHeight * 0.02,
+                          mainAxisSpacing: kHeight * 0.02,
+                        ),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x1a395ab8),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  child: Container(
+                                    color: const Color(0xFFD8EAEC),
+                                    height: kHeight * 0.2,
+                                    width: kWidth,
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          "${_controller.productList[index].images![0].src}",
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: kHeight * 0.01),
-                              Padding(
-                                padding: EdgeInsets.only(left: kWidth * 0.05),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: kHeight * 0.055,
-                                      child: const Text(
-                                        'Man Stylish Dresse sdddd',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                            fontFamily: 'Roboto'),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          '\$ 150',
-                                          maxLines: 1,
+                                SizedBox(height: kHeight * 0.01),
+                                Padding(
+                                  padding: EdgeInsets.only(left: kWidth * 0.05),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: kHeight * 0.055,
+                                        child: Text(
+                                          '${_controller.productList[index].name}',
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 16,
-                                              color: Color(0xFF989FA8),
                                               fontFamily: 'Roboto'),
                                         ),
-                                        SizedBox(width: kWidth * 0.04),
-                                        const Text(
-                                          '\$ 79.00',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 20,
-                                              color: Color(0xFF000000),
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: kHeight * 0.01),
-                                    RatingBarIndicator(
-                                      rating: 2.5,
-                                      itemBuilder: (context, index) =>
-                                          const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
                                       ),
-                                      itemCount: 5,
-                                      itemSize: 20.0,
-                                      direction: Axis.horizontal,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '\$ ${_controller.productList[index].price}',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 20,
+                                                color: Color(0xFF000000),
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                          SizedBox(width: kWidth * 0.04),
+                                          Visibility(
+                                            visible: _controller
+                                                .discountVisible(index),
+                                            child: Text(
+                                              '\$ ${_controller.productList[index].regularPrice}',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 16,
+                                                  color: Color(0xFF989FA8),
+                                                  fontFamily: 'Roboto'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: kHeight * 0.01),
+                                      RatingBarIndicator(
+                                        rating: double.parse(
+                                            "${_controller.productList[index].averageRating}"),
+                                        itemBuilder: (context, index) =>
+                                            const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        itemCount: 5,
+                                        itemSize: 20.0,
+                                        direction: Axis.horizontal,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

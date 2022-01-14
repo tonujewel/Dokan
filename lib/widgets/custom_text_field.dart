@@ -4,13 +4,17 @@ import 'package:flutter_svg/svg.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
-    required this.emailTextController,
+    required this.controller,
     required this.hints,
     required this.svgPath,
+    this.obscure,
+    this.inputType,
   }) : super(key: key);
 
-  final TextEditingController emailTextController;
+  final TextEditingController controller;
   final String hints, svgPath;
+  final bool? obscure;
+  final TextInputType? inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,10 @@ class CustomTextField extends StatelessWidget {
           ),
           Flexible(
             child: TextField(
+              keyboardType: inputType,
+              obscureText: obscure ?? false,
               cursorColor: Colors.black,
-              controller: emailTextController,
+              controller: controller,
               style: const TextStyle(
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Roboto',

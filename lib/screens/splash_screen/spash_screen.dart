@@ -1,4 +1,4 @@
-import 'package:dokani/controllers/spalash_controller.dart';
+import 'package:dokani/screens/splash_screen/spalash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
