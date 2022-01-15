@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dokani/screens/product_list/product_controller.dart';
 import 'package:dokani/widgets/custom_button.dart';
 import 'package:dokani/widgets/custom_progress.dart';
+import 'package:dokani/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -62,8 +63,9 @@ class ProductListScreen extends StatelessWidget {
                               children: [
                                 ClipRRect(
                                   borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10)),
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
                                   child: Container(
                                     color: const Color(0xFFD8EAEC),
                                     height: kHeight * 0.2,
@@ -73,9 +75,9 @@ class ProductListScreen extends StatelessWidget {
                                       imageUrl:
                                           "${_controller.productList[index].images![0].src}",
                                       placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
+                                          ImageLoader(),
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                          const Icon(Icons.error),
                                     ),
                                   ),
                                 ),
@@ -254,7 +256,10 @@ class ProductListScreen extends StatelessWidget {
                             Flexible(
                               child: CustomButton(
                                 backGroundColor: const Color(0xFF1ABC9C),
-                                onTap: () => Get.back(),
+                                onTap: () {
+                                  Get.back();
+                                  _controller.filterAction();
+                                },
                                 title: 'Apply',
                               ),
                             ),

@@ -1,5 +1,4 @@
 import 'package:dokani/screens/authentication/sign_up/sign_up_controller.dart';
-import 'package:dokani/screens/home/home_screen.dart';
 import 'package:dokani/widgets/custom_button.dart';
 import 'package:dokani/widgets/custom_progress.dart';
 import 'package:dokani/widgets/custom_text_field.dart';

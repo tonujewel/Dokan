@@ -1,7 +1,5 @@
 import 'package:dokani/screens/splash_screen/spash_screen.dart';
-import 'package:dokani/test.dart';
 import 'package:flutter/material.dart';
-import 'screens/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 

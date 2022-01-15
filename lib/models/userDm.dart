@@ -121,15 +121,17 @@ class ExtraCapabilities {
   }
 }
 
-class _links {
-  _links({
+// ignore: camel_case_types
+class links {
+  links({
     required this.self,
     required this.collection,
   });
   late final List<Self> self;
   late final List<Collection> collection;
 
-  _links.fromJson(Map<String, dynamic> json) {
+  // ignore: unused_element
+  links.fromJson(Map<String, dynamic> json) {
     self = List.from(json['self']).map((e) => Self.fromJson(e)).toList();
     collection = List.from(json['collection'])
         .map((e) => Collection.fromJson(e))

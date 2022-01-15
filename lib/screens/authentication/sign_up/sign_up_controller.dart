@@ -29,7 +29,7 @@ class SignUpController extends GetxController {
       return;
     }
 
-    if (passwordController.text.length > 6) {
+    if (passwordController.text.length < 6) {
       errorSnackbar('Password must be at least 6 character');
       return;
     }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dokani/utils/app_constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +21,10 @@ class APIManager {
       var response = await http.Response.fromStream(res)
           .timeout(const Duration(minutes: 1));
 
-      print('URL>>' + url);
-      print('RESPONSE>>' + response.body);
+      if (kDebugMode) {
+        print('URL>>' + url);
+        print('RESPONSE>>' + response.body);
+      }
 
       responseJson = _response(response);
     } on SocketException {
@@ -43,8 +44,10 @@ class APIManager {
           .get(Uri.parse(url), headers: header)
           .timeout(const Duration(seconds: 30));
 
-      print("URL:: $url");
-      print("RESPONSE:: ${response.body}");
+      if (kDebugMode) {
+        print("URL:: $url");
+        print("RESPONSE:: ${response.body}");
+      }
 
       responseJson = _response(response);
     } on SocketException {

@@ -101,6 +101,10 @@ class ProfileController extends GetxController {
       'Content-Type': 'application/json'
     };
 
+    if (kDebugMode) {
+      print('body ::: $body');
+    }
+
     APIManager.postAPICall(
             url: "${URL.updateUserInformationURL}${userDm!.id}",
             header: headers,
